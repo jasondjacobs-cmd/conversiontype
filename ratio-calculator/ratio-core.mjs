@@ -1,0 +1,10 @@
+const EPSILON=1e-10;
+export const finitePositive=value=>Number.isFinite(Number(value))&&Number(value)>0;
+const decimals=value=>{const text=String(value).toLowerCase();if(text.includes('e-'))return Number(text.split('e-')[1]);return(text.split('.')[1]||'').length};
+export const gcd=(a,b)=>{a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));while(b)[a,b]=[b,a%b];return a||1};
+export const format=value=>{const rounded=Math.round((Number(value)+Number.EPSILON)*1e6)/1e6;return Number.isInteger(rounded)?String(rounded):String(rounded).replace(/0+$/,'').replace(/\.$/,'')};
+export function simplifyRatio(a,b){if(!finitePositive(a)||!finitePositive(b))throw new Error('Enter two numbers greater than zero.');const precision=Math.min(6,Math.max(decimals(a),decimals(b))),factor=10**precision,left=Math.round(Number(a)*factor),right=Math.round(Number(b)*factor),divisor=gcd(left,right);return[left/divisor,right/divisor]}
+export function solveProportion(values){const numbers=values.map(value=>value===''?null:Number(value)),missing=numbers.reduce((all,value,index)=>value===null?[...all,index]:all,[]);if(missing.length!==1)throw new Error('Leave exactly one value blank.');if(numbers.some(value=>value!==null&&!finitePositive(value)))throw new Error('Known values must be greater than zero.');const[a,b,c,d]=numbers;let answer;if(missing[0]===0)answer=b*c/d;if(missing[0]===1)answer=a*d/c;if(missing[0]===2)answer=a*d/b;if(missing[0]===3)answer=b*c/a;if(!Number.isFinite(answer)||answer<=EPSILON)throw new Error('This proportion cannot be solved.');return{index:missing[0],answer}}
+export function scaleRatio(a,b,targetFirst){if(!finitePositive(targetFirst))throw new Error('Enter a new first value greater than zero.');const[left,right]=simplifyRatio(a,b);return[Number(targetFirst),Number(targetFirst)*right/left]}
+export function ratioConversions(a,b){const[left,right]=simplifyRatio(a,b);return{left,right,fraction:left+'/'+right,percentage:Number(a)/Number(b)*100}}
+export function percentageToRatio(percent){if(!finitePositive(percent))throw new Error('Enter a percentage greater than zero.');return simplifyRatio(percent,100)}
