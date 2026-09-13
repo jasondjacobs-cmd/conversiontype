@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://conversiontype.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://conversiontype.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://conversiontype.com/ratio-calculator/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://conversiontype.com/simplify-ratio/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/solve-ratio/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/scale-ratio/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/ratio-to-fraction/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/ratio-to-percentage/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/percentage-to-ratio/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>
