@@ -28,6 +28,6 @@ for(const[mode,item]of Object.entries(cases)){
  const restored=page({mode,search:url.search});for(const[name,value]of Object.entries(item.values))assert.equal(restored.form.elements[name].value,value);assert.match(restored.out.innerHTML,new RegExp(item.answer));
 }
 const main=page({mode:'all',values:{mode:'percent-off',price:'80',discount:'25'}});assert.equal(main.listeners.submit({preventDefault(){}}),true);assert.equal(new URL(main.location.href).searchParams.get('mode'),'percent-off');await main.listeners.share();assert.equal(main.copied(),main.location.href);
-const restored=page({mode:'all',search:new URL(main.location.href).search});assert.equal(restored.form.elements.mode.value,'percent-off');assert.match(restored.out.innerHTML,/\\$60/);
+const restored=page({mode:'all',search:new URL(main.location.href).search});assert.equal(restored.form.elements.mode.value,'percent-off');assert.ok(restored.out.innerHTML.includes('$60'));
 for(const search of['?mode=bad&a=1','?mode=percentage-of&percent=nope&value=4','?mode=what-percent&part=3','?mode=percentage-change&old=0&new=4']){const invalid=page({mode:'all',search});assert.match(invalid.out.innerHTML,/Check shared link/)}
 console.log('Passed percentage calculations, shareable-state restoration, sharing, and malformed URL checks.');
