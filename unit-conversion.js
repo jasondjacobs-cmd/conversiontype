@@ -10,6 +10,8 @@ const conversionRules={
 const format=n=>{
  if(!Number.isFinite(n))return'';
  if(Object.is(n,-0)||Math.abs(n)<1e-12)return'0';
+ const nearestInteger=Math.round(n);
+ if(Math.abs(n-nearestInteger)<1e-10)return String(nearestInteger);
  const abs=Math.abs(n);
  if(abs>=1e12||abs<1e-8)return n.toExponential(10).replace(/\.0+(?=e)|(?:(\.\d*?)0+)(?=e)/,'$1');
  return Number(n.toPrecision(12)).toString();
