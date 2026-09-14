@@ -144,12 +144,52 @@ Use:
 - Contextual links within explanations where useful
 - Links from results when a logical next action exists
 - Curated links between closely related answer pages
+- Definition bubbles that can link important terminology to deeper explanation pages
 
 Use descriptive anchor text. Avoid excessive or irrelevant cross-linking.
 
 As the site grows, prioritize important pages so they are reachable through a short, understandable navigation path.
 
-## 8. Technical SEO requirements
+## 8. Definition bubbles and contextual learning
+
+Examples and explanatory sections should help users understand unfamiliar terminology without forcing them to leave the tool page.
+
+ConversionType should use a reusable definition-bubble system for meaningful technical, mathematical, or conversion terms.
+
+Examples include:
+
+- ratio
+- greatest common divisor (GCD)
+- equivalent ratio
+- proportion
+- scale factor
+- numerator
+- denominator
+- fraction
+- percentage
+- conversion factor
+- metric
+- imperial
+
+Rules:
+
+- Only annotate terms that genuinely benefit from explanation. Do not turn ordinary words into noisy links.
+- A linked term should open a concise definition bubble on click or tap.
+- Do not rely on hover-only interaction; the behavior must work on touch devices.
+- Definition triggers must be keyboard accessible.
+- The bubble must remain within the viewport on narrow mobile screens.
+- Escape or an equivalent accessible close action should dismiss the bubble.
+- Important page content must remain present in crawlable HTML; definitions must not hide essential explanations from search engines or users without JavaScript.
+- Each concept should use one authoritative definition across the site wherever practical.
+- Short definitions belong in the bubble; longer explanations should use a dedicated page when the concept justifies one.
+- High-value concept pages may use clean URLs such as `/definitions/greatest-common-divisor/` and should provide genuinely useful standalone content before being indexed.
+- Definition bubbles may link to those deeper pages with descriptive anchor text such as `Learn more about greatest common divisors`.
+- Opening a definition bubble must not generate a new indexable URL or uncontrolled query parameter.
+- Avoid repeatedly annotating every occurrence of the same term in a short section; prioritize readability.
+
+This system should create a useful knowledge graph between tools, examples, definitions, deeper concept pages, and related calculators without creating thin SEO pages.
+
+## 9. Technical SEO requirements
 
 Maintain the following across the site:
 
@@ -169,7 +209,7 @@ Maintain the following across the site:
 
 Do not depend on client-side JavaScript for all meaningful page content when the important explanatory content can be shipped in HTML.
 
-## 9. Structured data
+## 10. Structured data
 
 Use structured data only when it truthfully represents the visible page and matches supported schema types.
 
@@ -179,7 +219,7 @@ Do not invent unsupported rich-result types or add misleading markup solely in a
 
 Structured data must remain consistent with the visible page.
 
-## 10. Google, Bing, and indexing operations
+## 11. Google, Bing, and indexing operations
 
 Once the custom production domain is live:
 
@@ -193,7 +233,7 @@ Use actual Search Console and Bing data to decide which tools, sub-intents, and 
 
 Do not choose the long-term content roadmap solely from intuition once real search data is available.
 
-## 11. AI search and answer-engine visibility
+## 12. AI search and answer-engine visibility
 
 Pages should also be easy for AI-powered search and answer systems to understand and extract.
 
@@ -210,7 +250,7 @@ Favor:
 
 Do not create separate low-quality content merely for AI systems. The same page should serve humans and machines well.
 
-## 12. Quality and anti-spam rules
+## 13. Quality and anti-spam rules
 
 Never pursue ranking through thin or manipulative pages.
 
@@ -229,7 +269,7 @@ Avoid:
 
 Search traffic is the outcome of useful pages, sound architecture, technical accessibility, and sustained coverage of real user needs.
 
-## 13. Monetization policy
+## 14. Monetization policy
 
 Organic usefulness comes before ad density.
 
@@ -241,7 +281,7 @@ During early tool development:
 
 When display advertising is introduced later, keep the primary tool immediately usable and avoid layouts that materially degrade user experience or search performance.
 
-## 14. Release-gate expectations
+## 15. Release-gate expectations
 
 Future release gates should increasingly verify SEO requirements automatically.
 
@@ -259,10 +299,11 @@ For every new indexable tool page, gates should check where practical:
 - No prohibited live ad/analytics providers are introduced unintentionally.
 - Build succeeds.
 - Core calculator/conversion behavior has regression coverage.
+- Definition triggers remain valid and accessible when the page uses definition bubbles.
 
 A green build alone is not sufficient if the new page violates the project's search architecture.
 
-## 15. Production QA expectations
+## 16. Production QA expectations
 
 After deployment, verify both product behavior and search-facing behavior.
 
@@ -274,6 +315,7 @@ Production QA should include, as applicable:
 - No horizontal page overflow.
 - Page title, description, H1, canonical, and structured data are correct.
 - Internal links work.
+- Definition bubbles open by click/tap and keyboard, remain usable on mobile, and link correctly to deeper explanation pages when present.
 - Sitemap contains the intended clean page.
 - Shareable state does not create unintended canonical/indexing behavior.
 - No console/runtime errors or missing assets.
@@ -282,7 +324,7 @@ Production QA should include, as applicable:
 
 Do not mark an SEO-focused release complete solely because CI passes.
 
-## 16. Expansion decision framework
+## 17. Expansion decision framework
 
 Before creating a major new cluster or large set of landing pages, evaluate:
 
@@ -296,7 +338,7 @@ Before creating a major new cluster or large set of landing pages, evaluate:
 
 If the answer to the quality questions is no, do not create the page simply for SEO.
 
-## 17. Future-build instruction
+## 18. Future-build instruction
 
 Before implementing any new ConversionType tool or landing-page cluster, review this document and design the release around it.
 
@@ -306,6 +348,8 @@ Every future feature plan should identify:
 - Secondary/long-tail intents
 - Canonical URL(s)
 - Page content required to answer the intent
+- Important terminology that should receive definition bubbles
+- Any concepts deserving dedicated definition/explanation pages
 - Internal-link relationships
 - Structured-data decision
 - Sitemap/indexing decision
