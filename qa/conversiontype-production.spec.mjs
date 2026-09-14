@@ -74,6 +74,8 @@ test.describe('320px functional coverage',()=>{
       await expect(page.locator('.answer')).toHaveText(item.answer);
       const sharedUrl=page.url();
       expect(new URL(sharedUrl).search).not.toBe('');
+      await page.getByRole('button',{name:'Share result'}).click();
+      await expect.poll(()=>page.evaluate(()=>navigator.clipboard.readText())).toBe(sharedUrl);
       await page.reload();
       await expect(page.locator('.answer')).toHaveText(item.answer);
       for(const[name,value]of Object.entries(item.values))await expect(page.locator('[name="'+name+'"]')).toHaveValue(value);
@@ -83,6 +85,19 @@ test.describe('320px functional coverage',()=>{
       await context.close();
     });
   }
+
+  test('ratio clean URLs retain usable defaults',async({page})=>{
+    const finish=guardPage(page);
+    for(const url of['/ratio-calculator/','/simplify-ratio/','/solve-ratio/','/scale-ratio/','/ratio-to-fraction/','/ratio-to-percentage/','/percentage-to-ratio/']){
+      await page.goto(url);
+      await dismissPrivacy(page);
+      await expect(page.locator('[data-ratio-form]')).toBeVisible();
+      await expect(page.locator('[data-result]')).toBeHidden();
+      expect(new URL(page.url()).search).toBe('');
+      await expectNoOverflow(page);
+    }
+    await finish();
+  });
 
   test('main mode selector restores scale state',async({page})=>{
     const finish=guardPage(page);
