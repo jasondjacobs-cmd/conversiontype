@@ -5,6 +5,7 @@ on:
     paths:
       - qa/**
       - .github/workflows/production-qa.yml
+      - styles.css
   workflow_dispatch:
     inputs:
       base_url:
@@ -29,7 +30,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      QA_BASE_URL: ${{ inputs.base_url || 'https://conversiontype.pages.dev' }}
       QA_EXPECTED_COMMIT: ${{ inputs.expected_commit }}
     steps:
       - uses: actions/checkout@v4
@@ -38,6 +38,24 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Build pull request candidate
+        if: github.event_name == 'pull_request'
+        run: npm run build
+      - name: Configure QA target
+        env:
+          DISPATCH_BASE_URL: ${{ inputs.base_url }}
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "QA_BASE_URL=http://127.0.0.1:4173" >> "${GITHUB_ENV}"
+            python3 -m http.server 4173 --directory dist > /tmp/conversiontype-qa-server.log 2>&1 &
+            for attempt in 1 2 3 4 5; do
+              curl --fail --silent http://127.0.0.1:4173/ >/dev/null && exit 0
+              sleep 1
+            done
+            cat /tmp/conversiontype-qa-server.log
+            exit 1
+          fi
+          echo "QA_BASE_URL=${DISPATCH_BASE_URL}" >> "${GITHUB_ENV}"
       - name: Install QA runner
         run: npm install --no-save --no-package-lock @playwright/test@1.55.0
       - name: Install Chromium
