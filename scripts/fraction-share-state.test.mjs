@@ -1,0 +1,15 @@
+import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import vm from'node:vm';
+const source=await readFile(new URL('../fraction.js',import.meta.url),'utf8');
+const cases={
+ 'fraction-arithmetic':{values:{operation:'add',n1:'1',d1:'2',n2:'1',d2:'3'},answer:'5/6'},
+ 'simplify-fraction':{values:{n:'18',d:'24'},answer:'3/4'},
+ 'fraction-to-decimal':{values:{n:'3',d:'4'},answer:'0.75'},
+ 'decimal-to-fraction':{values:{decimal:'0.75'},answer:'3/4'},
+ 'fraction-to-percentage':{values:{n:'3',d:'4'},answer:'75%'},
+ 'percentage-to-fraction':{values:{percent:'75'},answer:'3/4'}};
+const names=['operation','n1','d1','n2','d2','n','d','decimal','percent'],defaults={operation:'add',n1:'1',d1:'2',n2:'1',d2:'3',n:'3',d:'4',decimal:'0.75',percent:'75'};
+function page({mode,search='',values={}}){const listeners={},elements=Object.fromEntries(names.map(n=>[n,{value:values[n]??defaults[n]}]));elements.mode={value:values.mode||mode};const form={dataset:{mode},elements,addEventListener(n,f){listeners[n]=f},querySelector(s){return s==='[name="mode"]'&&mode==='all'?elements.mode:null}};elements.mode.addEventListener=(n,f)=>listeners.change=f;const out={hidden:true,innerHTML:'',innerText:''},share={textContent:'Share result',addEventListener(n,f){listeners.share=f}},location={href:'https://conversiontype.com/test/'+search,search},history={replaceState(_s,_t,u){location.href=String(u);location.search=new URL(location.href).search}};let copied='';vm.runInNewContext(source,{document:{title:'Calculator',querySelector(s){return s==='[data-fraction-form]'?form:s==='[data-result]'?out:s==='[data-share]'?share:null},querySelectorAll(){return[]}},location,history,navigator:{clipboard:{async writeText(t){copied=t}}},URL,URLSearchParams,Number,Math,Object});return{form,out,listeners,location,copied:()=>copied}}
+for(const[mode,item]of Object.entries(cases)){const first=page({mode,values:item.values});assert.equal(first.listeners.submit({preventDefault(){}}),true);assert.ok(first.out.innerHTML.includes(item.answer));const u=new URL(first.location.href);for(const[n,v]of Object.entries(item.values))assert.equal(u.searchParams.get(n),v);const restored=page({mode,search:u.search});assert.ok(restored.out.innerHTML.includes(item.answer))}
+const main=page({mode:'all',values:{mode:'fraction-to-percentage',n:'3',d:'4'}});assert.equal(main.listeners.submit({preventDefault(){}}),true);await main.listeners.share();assert.equal(main.copied(),main.location.href);const restored=page({mode:'all',search:new URL(main.location.href).search});assert.equal(restored.form.elements.mode.value,'fraction-to-percentage');assert.ok(restored.out.innerHTML.includes('75%'));
+for(const search of['?mode=bad&n=1','?mode=fraction-to-decimal&n=1','?mode=fraction-to-decimal&n=1&d=0'])assert.ok(page({mode:'all',search}).out.innerHTML.includes('Check shared link'));
+console.log('Passed fraction calculations, shareable-state restoration, sharing, and malformed URL checks.');
