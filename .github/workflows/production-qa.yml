@@ -1,6 +1,10 @@
 name: Production QA
 
 on:
+  pull_request:
+    paths:
+      - qa/**
+      - .github/workflows/production-qa.yml
   workflow_dispatch:
     inputs:
       base_url:
@@ -25,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      QA_BASE_URL: ${{ inputs.base_url }}
+      QA_BASE_URL: ${{ inputs.base_url || 'https://conversiontype.pages.dev' }}
       QA_EXPECTED_COMMIT: ${{ inputs.expected_commit }}
     steps:
       - uses: actions/checkout@v4
