@@ -1,0 +1,3 @@
+# Definition bubble accessibility contract
+
+Definition triggers must be keyboard reachable and visibly focused. Enter or Space activates the native button. The open state is exposed with `aria-expanded`; the bubble uses dialog semantics and an accessible label. Escape dismisses the active bubble and restores focus. A visible, named close button is available. Mobile bubbles must remain within the viewport. The feature must not depend on hover.

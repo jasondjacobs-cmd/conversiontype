@@ -1,0 +1,1 @@
+Definition Bubbles v1 QA assets are intentionally separate from the static npm release gate. The production Playwright QA environment may execute qa/definition-bubbles-v1.spec.mjs after deployment. Static release gates remain dependency-free and run through npm test.
