@@ -28,7 +28,20 @@ const definitions={
  'common denominator':{label:'Common denominator',text:'A shared denominator used to compare, add, or subtract fractions.'},
  'mixed number':{label:'Mixed number',text:'A number containing a whole number and a proper fraction, such as 2 1/3.'},
  'markup':{label:'Markup',text:'The amount added to cost to determine a selling price, often expressed as a percentage of cost.'},
- 'margin':{label:'Margin',text:'The portion of a selling price remaining after cost, often expressed as a percentage of the selling price.'}
+ 'margin':{label:'Margin',text:'The portion of a selling price remaining after cost, often expressed as a percentage of the selling price.'},
+ 'conversion factor':{label:'Conversion factor',text:'A number used to multiply or divide a measurement to express it in another unit.'},
+ 'centimeter':{label:'Centimeter',text:'A metric unit of length equal to one hundredth of a meter.'},
+ 'inch':{label:'Inch',text:'A unit of length equal to exactly 2.54 centimeters.'},
+ 'kilogram':{label:'Kilogram',text:'The base metric unit of mass, equal to 1,000 grams.'},
+ 'pound':{label:'Pound',text:'An avoirdupois unit of mass equal to exactly 0.45359237 kilograms.'},
+ 'Celsius':{label:'Celsius',text:'A temperature scale where water freezes at 0 degrees and boils at 100 degrees at standard atmospheric pressure.'},
+ 'Fahrenheit':{label:'Fahrenheit',text:'A temperature scale where water freezes at 32 degrees and boils at 212 degrees at standard atmospheric pressure.'},
+ 'kilometer':{label:'Kilometer',text:'A metric unit of length equal to 1,000 meters.'},
+ 'mile':{label:'Mile',text:'A unit of length equal to exactly 1.609344 kilometers.'},
+ 'meter':{label:'Meter',text:'The base metric unit of length.'},
+ 'foot':{label:'Foot',text:'A unit of length equal to 12 inches or exactly 0.3048 meters.'},
+ 'ounce':{label:'Ounce',text:'An avoirdupois unit of mass equal to exactly 28.349523125 grams.'},
+ 'gram':{label:'Gram',text:'A metric unit of mass equal to one thousandth of a kilogram.'}
 };
 
 const definitionEntries=Object.entries(definitions).sort((a,b)=>b[0].length-a[0].length);

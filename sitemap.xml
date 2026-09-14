@@ -21,4 +21,17 @@
 <url><loc>https://conversiontype.com/decimal-to-fraction/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
 <url><loc>https://conversiontype.com/fraction-to-percentage/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
 <url><loc>https://conversiontype.com/percentage-to-fraction/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/unit-converters/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+<url><loc>https://conversiontype.com/cm-to-inches/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/kg-to-lbs/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/inches-to-cm/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/lbs-to-kg/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/celsius-to-fahrenheit/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/fahrenheit-to-celsius/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/km-to-miles/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/miles-to-km/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/feet-to-meters/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/meters-to-feet/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/ounces-to-grams/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+<url><loc>https://conversiontype.com/grams-to-ounces/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
 </urlset>
