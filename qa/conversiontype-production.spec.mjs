@@ -233,7 +233,7 @@ test.describe('fraction functional coverage at 320px',()=>{
   {path:'/percentage-to-fraction/',values:{percent:'75'},answer:'3/4'}];
  for(const item of cases)test(item.path+' calculates and restores shared state',async({page},testInfo)=>{
   const finish=guardPage(page);await page.goto(item.path);await dismissPrivacy(page);
-  for(const[name,value]of Object.entries(item.values))await page.locator('[name="'+name+'"]').selectOption?name==='operation'?await page.locator('[name="'+name+'"]').selectOption(value):await page.locator('[name="'+name+'"]').fill(value):null;
+  for(const[name,value]of Object.entries(item.values)){const input=page.locator('[name="'+name+'"]');if(name==='operation')await input.selectOption(value);else await input.fill(value)}
   await page.getByRole('button',{name:'Calculate'}).click();await expect(page.locator('.answer')).toHaveText(item.answer);
   expect(new URL(page.url()).search).not.toBe('');await page.reload();await expect(page.locator('.answer')).toHaveText(item.answer);
   await expectNoOverflow(page);await capture(page,testInfo,item.path.split('/').filter(Boolean)[0]+'-320');await finish();
