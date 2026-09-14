@@ -2,10 +2,6 @@ name: Production QA
 
 on:
   pull_request:
-    paths:
-      - qa/**
-      - .github/workflows/production-qa.yml
-      - styles.css
   workflow_dispatch:
     inputs:
       base_url:
