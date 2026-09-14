@@ -138,3 +138,63 @@ test.describe('320px functional coverage',()=>{
     await finish();
   });
 });
+
+
+test('percentage hub mobile and desktop shell',async({page},testInfo)=>{
+  const finish=guardPage(page);
+  await page.goto('/percentage-calculator/');
+  await dismissPrivacy(page);
+  await expect(page.getByRole('heading',{name:'Percentage Calculator',level:1})).toBeVisible();
+  await expect(page.locator('[data-percentage-form]')).toBeVisible();
+  await expectNoOverflow(page);
+  await capture(page,testInfo,'percentage-hub-'+testInfo.project.name);
+  await finish();
+});
+
+test.describe('percentage functional coverage at 320px',()=>{
+  test.skip(({viewport})=>viewport?.width!==320,'percentage matrix runs once at 320px');
+  const cases=[
+    {path:'/percentage-of/',values:{percent:'20',value:'150'},answer:'30'},
+    {path:'/what-percent/',values:{part:'45',total:'150'},answer:'30%'},
+    {path:'/percentage-change/',values:{old:'80',new:'100'},answer:'25%'},
+    {path:'/percentage-difference/',values:{a:'40',b:'60'},answer:'40%'},
+    {path:'/percent-off/',values:{price:'80',discount:'25'},answer:'$60'},
+    {path:'/markup-margin-calculator/',values:{cost:'60',price:'100'},answer:'66.666667% markup · 40% margin'}
+  ];
+  for(const item of cases){
+    test(item.path+' calculates and restores shared state',async({page},testInfo)=>{
+      const finish=guardPage(page);
+      await page.goto(item.path);
+      await dismissPrivacy(page);
+      for(const[name,value]of Object.entries(item.values))await page.locator('[name="'+name+'"]').fill(value);
+      await page.getByRole('button',{name:'Calculate'}).click();
+      await expect(page.locator('.answer')).toHaveText(item.answer);
+      expect(new URL(page.url()).search).not.toBe('');
+      await page.reload();
+      await expect(page.locator('.answer')).toHaveText(item.answer);
+      for(const[name,value]of Object.entries(item.values))await expect(page.locator('[name="'+name+'"]')).toHaveValue(value);
+      await expectNoOverflow(page);
+      await capture(page,testInfo,item.path.split('/').filter(Boolean)[0]+'-320');
+      await finish();
+    });
+  }
+  test('percentage hub restores selected mode',async({page})=>{
+    const finish=guardPage(page);
+    await page.goto('/percentage-calculator/?mode=percent-off&price=80&discount=25');
+    await dismissPrivacy(page);
+    await expect(page.locator('[name="mode"]')).toHaveValue('percent-off');
+    await expect(page.locator('.answer')).toHaveText('$60');
+    await expectNoOverflow(page);
+    await finish();
+  });
+  test('percentage invalid shared links fail safely',async({page})=>{
+    const finish=guardPage(page);
+    for(const url of['/percentage-calculator/?mode=bad&a=1','/percentage-of/?percent=nope&value=4','/what-percent/?part=3','/percentage-change/?old=0&new=4']){
+      await page.goto(url);
+      await dismissPrivacy(page);
+      await expect(page.locator('[data-result]')).toContainText('Check shared link');
+      await expectNoOverflow(page);
+    }
+    await finish();
+  });
+});
