@@ -1,5 +1,6 @@
 import assert from'node:assert/strict';import{readFile}from'node:fs/promises';import vm from'node:vm';
 const source=await readFile(new URL('../unit-conversion.js',import.meta.url),'utf8');
+for(const sharedName of['form','status','definitions'])assert.ok(!new RegExp(`const\\s+${sharedName}\\b|,${sharedName}=`).test(source),`converter global ${sharedName} must not collide with shared app globals`);
 function page({key='cm',reverse=false,search=''}){const listeners={},from={value:'',labels:[{textContent:'From'}],addEventListener(n,f){listeners.from=f}},to={value:'',labels:[{textContent:'To'}],addEventListener(n,f){listeners.to=f}},form={dataset:{conversion:key,...(reverse?{reverse:'true'}:{})},elements:{from,to},addEventListener(n,f){listeners[n]=f}},share={textContent:'Share result',addEventListener(n,f){listeners.share=f}},status={textContent:'',dataset:{}},location={href:'https://conversiontype.com/test/'+search,search},history={replaceState(_a,_b,u){location.href=String(u);location.search=new URL(location.href).search}};let copied='';const document={title:'Converter',activeElement:from,querySelector(s){return s==='[data-conversion-form]'?form:s==='[data-share]'?share:s==='[data-conversion-status]'?status:null}};vm.runInNewContext(source,{document,location,history,navigator:{clipboard:{async writeText(v){copied=v}}},URL,URLSearchParams,Number,Math,Object});return{from,to,status,listeners,location,copied:()=>copied,document}}
 const cases=[
  ['cm',false,'2.54','1'],['cm',true,'1','2.54'],['kg',false,'1','2.20462262185'],['kg',true,'2.20462262185','1'],
@@ -16,4 +17,3 @@ for(const slug of slugs){const html=await readFile(`${slug}/index.html`,'utf8');
 assert.ok(!/<loc>[^<]*\?/.test(sitemap));
 const forward=await readFile('cm-to-inches/index.html','utf8'),reverse=await readFile('inches-to-cm/index.html','utf8');assert.ok(forward.includes('inches = centimeters ÷ 2.54'));assert.ok(reverse.includes('centimeters = inches × 2.54'));assert.notEqual(forward,reverse);
 console.log('Passed unit calculations, bidirectional conversion, precision, shared state, malformed state, SEO pages, tables, links, canonicals, and sitemap checks.');
-
