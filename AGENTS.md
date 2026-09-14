@@ -8,7 +8,7 @@ Before planning, designing, implementing, or modifying any public-facing tool, c
 
 1. Read `docs/RANKING_SEO_STRATEGY.md` in full.
 2. Treat that document as a required project standard, not optional guidance.
-3. Incorporate its search-intent, canonical, crawlable-content, internal-linking, structured-data, sitemap, indexing, release-gate, and production-QA requirements into the implementation.
+3. Incorporate its search-intent, canonical, crawlable-content, internal-linking, definition-bubble, structured-data, sitemap, indexing, release-gate, and production-QA requirements into the implementation.
 4. Do not create thin, duplicate, doorway, or uncontrolled programmatic pages.
 5. If a requested implementation conflicts with `docs/RANKING_SEO_STRATEGY.md`, identify and document the conflict before proceeding rather than silently ignoring the standard.
 
@@ -21,6 +21,8 @@ Every new public tool or landing-page feature should explicitly consider:
 - Canonical URL strategy
 - Crawlable page content
 - Formula, method, examples, or explanatory content where relevant
+- Important terminology that should receive definition bubbles
+- Concepts that deserve deeper definition/explanation pages
 - Internal-link relationships
 - Structured-data decision
 - Sitemap and indexing decision
@@ -30,6 +32,24 @@ Every new public tool or landing-page feature should explicitly consider:
 - Production QA requirements
 
 Do not treat SEO as a post-build content pass. It is part of the feature architecture.
+
+## Definition bubbles and contextual learning
+
+When examples or explanatory content contains terminology that a reasonable user may not understand, use the reusable ConversionType definition-bubble pattern described in `docs/RANKING_SEO_STRATEGY.md`.
+
+Requirements:
+
+- Annotate meaningful technical, mathematical, or conversion terms only.
+- Use concise, authoritative definitions.
+- Support click/tap and keyboard interaction; do not rely on hover alone.
+- Keep bubbles usable inside narrow mobile viewports.
+- Preserve important explanatory content in crawlable HTML.
+- Avoid repeatedly annotating every occurrence of the same term in a short section.
+- Use one consistent definition for the same concept across the site where practical.
+- Link high-value terms to dedicated definition/explanation pages only when those pages provide substantial standalone value.
+- Do not create new indexable URLs merely from opening or interacting with a definition bubble.
+
+Future tools should consider definition opportunities during planning rather than adding them as an afterthought.
 
 ## Shareable and stateful URLs
 
@@ -66,6 +86,7 @@ Where practical, automated gates should verify:
 - H1 exists.
 - Canonical is correct.
 - Required crawlable explanatory content is present.
+- Definition triggers remain valid and accessible when used.
 - Structured data is present and appropriate when required.
 - Canonical indexable page is represented correctly in the sitemap.
 - Arbitrary calculator/converter state URLs are not added to the sitemap.
@@ -85,6 +106,7 @@ For relevant releases, production QA should verify both product behavior and sea
 - No horizontal overflow.
 - Title, meta description, H1, canonical, and structured data remain correct.
 - Internal links work.
+- Definition bubbles open by click/tap and keyboard, remain inside the viewport on mobile, dismiss accessibly, and link correctly to deeper explanation pages when present.
 - Sitemap contains the intended clean canonical pages.
 - No unintended indexing behavior is introduced by state/query URLs.
 - No console/runtime errors or missing assets.
@@ -108,6 +130,7 @@ Confirm that:
 
 - `docs/RANKING_SEO_STRATEGY.md` was reviewed when applicable.
 - The implementation follows its requirements.
+- Definition opportunities were considered for explanatory content.
 - Relevant automated gates pass.
 - The PR/merge workflow was followed for product changes.
 - Production QA was completed when required.
