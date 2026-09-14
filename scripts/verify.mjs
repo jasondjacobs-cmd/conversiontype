@@ -26,6 +26,6 @@ for(const p of pages){
  checks.push([!titles.has(title),p+' unique title'],[!descriptions.has(description),p+' unique description']);
  titles.add(title);descriptions.add(description);
 }
-checks.push([!map.includes('?'),'sitemap excludes query states']);
+checks.push([!/<loc>[^<]*\?/.test(map),'sitemap excludes query states']);
 for(const[passed,name]of checks)if(!passed)throw new Error('Release gate failed: '+name);
 console.log('Passed '+checks.length+' platform and SEO release checks.');
