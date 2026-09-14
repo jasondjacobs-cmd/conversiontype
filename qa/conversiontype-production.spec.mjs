@@ -76,7 +76,7 @@ test.describe('320px functional coverage',()=>{
       expect(new URL(sharedUrl).search).not.toBe('');
       await page.reload();
       await expect(page.locator('.answer')).toHaveText(item.answer);
-      for(const[name,value]of Object.entries(item.values))await expect(page.locator('[name="'+name+'"]').toHaveValue(value));
+      for(const[name,value]of Object.entries(item.values))await expect(page.locator('[name="'+name+'"]')).toHaveValue(value));
       await expectNoOverflow(page);
       await capture(page,testInfo,item.path.split('/').filter(Boolean)[0]+'-320');
       await finish();
