@@ -213,3 +213,38 @@ test.describe('percentage functional coverage at 320px',()=>{
     await finish();
   });
 });
+
+
+test('fraction hub mobile and desktop shell',async({page},testInfo)=>{
+ const finish=guardPage(page);await page.goto('/fraction-calculator/');await dismissPrivacy(page);
+ await expect(page.getByRole('heading',{name:'Fraction Calculator',level:1})).toBeVisible();
+ await expect(page.locator('[data-fraction-form]')).toBeVisible();await expectNoOverflow(page);
+ await capture(page,testInfo,'fraction-hub-'+testInfo.project.name);await finish();
+});
+
+test.describe('fraction functional coverage at 320px',()=>{
+ test.skip(({viewport})=>viewport?.width!==320,'fraction matrix runs once at 320px');
+ const cases=[
+  {path:'/fraction-calculator/',values:{operation:'add',n1:'1',d1:'2',n2:'1',d2:'3'},answer:'5/6'},
+  {path:'/simplify-fraction/',values:{n:'18',d:'24'},answer:'3/4'},
+  {path:'/fraction-to-decimal/',values:{n:'3',d:'4'},answer:'0.75'},
+  {path:'/decimal-to-fraction/',values:{decimal:'0.75'},answer:'3/4'},
+  {path:'/fraction-to-percentage/',values:{n:'3',d:'4'},answer:'75%'},
+  {path:'/percentage-to-fraction/',values:{percent:'75'},answer:'3/4'}];
+ for(const item of cases)test(item.path+' calculates and restores shared state',async({page},testInfo)=>{
+  const finish=guardPage(page);await page.goto(item.path);await dismissPrivacy(page);
+  for(const[name,value]of Object.entries(item.values))await page.locator('[name="'+name+'"]').selectOption?name==='operation'?await page.locator('[name="'+name+'"]').selectOption(value):await page.locator('[name="'+name+'"]').fill(value):null;
+  await page.getByRole('button',{name:'Calculate'}).click();await expect(page.locator('.answer')).toHaveText(item.answer);
+  expect(new URL(page.url()).search).not.toBe('');await page.reload();await expect(page.locator('.answer')).toHaveText(item.answer);
+  await expectNoOverflow(page);await capture(page,testInfo,item.path.split('/').filter(Boolean)[0]+'-320');await finish();
+ });
+ test('fraction arithmetic operations calculate correctly',async({page})=>{
+  const finish=guardPage(page);await page.goto('/fraction-calculator/');await dismissPrivacy(page);
+  const expected={add:'5/6',subtract:'1/6',multiply:'1/6',divide:'3/2'};
+  for(const[operation,answer]of Object.entries(expected)){await page.locator('[name="operation"]').selectOption(operation);await page.getByRole('button',{name:'Calculate'}).click();await expect(page.locator('.answer')).toHaveText(answer)}
+  await expectNoOverflow(page);await finish();
+ });
+ test('fraction invalid shared links fail safely',async({page})=>{
+  const finish=guardPage(page);for(const url of['/fraction-calculator/?mode=bad&n=1','/fraction-to-decimal/?n=1','/fraction-to-decimal/?n=1&d=0']){await page.goto(url);await dismissPrivacy(page);await expect(page.locator('[data-result]')).toContainText('Check shared link');await expectNoOverflow(page)}await finish();
+ });
+});
