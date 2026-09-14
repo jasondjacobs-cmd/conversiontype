@@ -10,7 +10,7 @@ const viewports=[
 
 export default defineConfig({
   testDir:'.',
-  testMatch:'conversiontype-production.spec.mjs',
+  testMatch:['conversiontype-production.spec.mjs','definition-bubbles-v1.spec.mjs'],
   timeout:30000,
   expect:{timeout:7000},
   fullyParallel:false,
