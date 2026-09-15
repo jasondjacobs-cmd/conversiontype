@@ -1,0 +1,10 @@
+import assert from'node:assert/strict';import'../financial-calculators.js';
+const E=globalThis.FinancialEngine,close=(actual,expected,tolerance=1e-8)=>assert.ok(Math.abs(actual-expected)<=tolerance,`${actual} != ${expected}`);
+close(E.payment(25000,7.5,60),500.94871489058835);close(E.payment(1200,0,12),100);
+const zero=E.amortize(1200,0,12);close(zero.totalInterest,0);close(zero.schedule.at(-1).balance,0);assert.equal(zero.schedule.length,12);
+const amort=E.amortize(250000,6.5,360);assert.equal(amort.schedule.length,360);close(amort.schedule.at(-1).balance,0);close(amort.totalPaid,amort.schedule.reduce((sum,row)=>sum+row.payment,0));
+const growth=E.compound(10000,5,10,12,100);close(growth.endingBalance,31998.322921469524);close(growth.contributions,12000);close(E.compound(1000,0,1,12,10).endingBalance,1120);assert.throws(()=>E.compound(1000,5,1.1,12,0),/whole number/);
+close(E.simple(10000,5,3).interest,1500);close(E.simple(10000,5,3).endingAmount,11500);
+const apr=E.solveApr(10000,500,320,36);close(apr.apr,12.979773585097487,1e-7);close(E.solveApr(1200,0,100,12).apr,0);assert.throws(()=>E.solveApr(10000,0,100,36),/cannot repay/);assert.throws(()=>E.solveApr(100,100,10,12),/valid amount/);
+const regular=E.payoff(18000,8,400,0),extra=E.payoff(18000,8,400,100);assert.ok(extra.payments<regular.payments);assert.ok(extra.totalInterest<regular.totalInterest);close(extra.schedule.at(-1).balance,0);assert.ok(extra.schedule.at(-1).payment<500);assert.throws(()=>E.payoff(10000,12,100,0),/must exceed/);
+console.log('Passed financial formula, precision, amortization, APR, and payoff regression checks.');
