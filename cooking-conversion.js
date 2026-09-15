@@ -1,3 +1,5 @@
+(function(){
+'use strict';
 const form=document.querySelector('[data-cooking-form]'),status=document.querySelector('[data-cooking-status]'),share=document.querySelector('[data-share]');
 const F={cup_fl_oz:8,cup_tbsp:16,tbsp_tsp:3,cup_ml_us:236.5882365,cup_ml_metric:250};
 // Baking ingredient reference weights use a documented, consistent US-cup convention. Exact recipe weights may vary by source and measuring method.
@@ -13,3 +15,4 @@ for(const el of form?.querySelectorAll('select')||[])el.addEventListener('change
 form?.addEventListener('submit',e=>{e.preventDefault();convert(document.activeElement===form.elements.to?'to':'from')});
 share?.addEventListener('click',async()=>{if(!location.search)return;try{if(navigator.share)await navigator.share({title:document.title,text:status?.textContent||'',url:location.href});else{await navigator.clipboard.writeText(location.href);share.textContent='Link copied'}}catch{}});
 (function restore(){if(!form||!location.search)return;const p=new URLSearchParams(location.search),source=p.get('source'),raw=p.get('value');let invalidOption=false;if(form.elements.ingredient&&p.has('ingredient')){const v=p.get('ingredient');if(gramsPerCup[v])form.elements.ingredient.value=v;else invalidOption=true}if(form.elements.standard&&p.has('standard')){const v=p.get('standard');if(['us','metric'].includes(v))form.elements.standard.value=v;else invalidOption=true}if(form.elements.fromUnit&&p.has('fromUnit')){const v=p.get('fromUnit');if(allowedUnits.includes(v))form.elements.fromUnit.value=v;else invalidOption=true}if(form.elements.toUnit&&p.has('toUnit')){const v=p.get('toUnit');if(allowedUnits.includes(v))form.elements.toUnit.value=v;else invalidOption=true}if(invalidOption||!['from','to'].includes(source)||raw===null||raw.trim()===''||!Number.isFinite(Number(raw))){setStatus('This shared conversion link contains invalid values. You can still enter a number below.',true);return}(source==='from'?form.elements.from:form.elements.to).value=raw;convert(source,false)})();
+})();
