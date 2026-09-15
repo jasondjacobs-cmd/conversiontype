@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 
 const app = await readFile('app.js','utf8');
 const css = await readFile('styles.css','utf8');
-const terms = ['ratio','greatest common divisor','GCD','equivalent ratio','proportion','scale factor','numerator','denominator','fraction','percentage','percent','percentage point','percentage change','percentage difference','decimal','reciprocal','common denominator','mixed number','markup','margin','conversion factor','centimeter','inch','kilogram','pound','Celsius','Fahrenheit','kilometer','mile','meter','foot','ounce','gram'];
+const terms = ['ratio','greatest common divisor','GCD','equivalent ratio','proportion','scale factor','numerator','denominator','fraction','percentage','percent','percentage point','percentage change','percentage difference','decimal','reciprocal','common denominator','mixed number','markup','margin','conversion factor','centimeter','inch','kilogram','pound','Celsius','Fahrenheit','kilometer','mile','meter','foot','ounce','gram','elapsed time','duration','decimal hours','business day','calendar day','inclusive counting','leap year','12-hour clock','24-hour clock'];
 for (const term of terms) {
   if (!app.includes(`'${term}'`)) throw new Error(`Missing definition term: ${term}`);
 }

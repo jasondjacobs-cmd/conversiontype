@@ -41,7 +41,16 @@ const definitions={
  'meter':{label:'Meter',text:'The base metric unit of length.'},
  'foot':{label:'Foot',text:'A unit of length equal to 12 inches or exactly 0.3048 meters.'},
  'ounce':{label:'Ounce',text:'An avoirdupois unit of mass equal to exactly 28.349523125 grams.'},
- 'gram':{label:'Gram',text:'A metric unit of mass equal to one thousandth of a kilogram.'}
+ 'gram':{label:'Gram',text:'A metric unit of mass equal to one thousandth of a kilogram.'},
+ 'elapsed time':{label:'Elapsed time',text:'The amount of time that passes between a starting point and an ending point.'},
+ 'duration':{label:'Duration',text:'A measured length of time, such as 2 hours and 30 minutes.'},
+ 'decimal hours':{label:'Decimal hours',text:'A duration written as a decimal number of hours. For example, 1 hour 30 minutes is 1.5 hours.'},
+ 'business day':{label:'Business day',text:'For these calculators, a Monday through Friday calendar day. Holidays are not automatically excluded.'},
+ 'calendar day':{label:'Calendar day',text:'Any dated day, including Saturdays, Sundays, and holidays.'},
+ 'inclusive counting':{label:'Inclusive counting',text:'A counting method that includes both the starting date and ending date.'},
+ 'leap year':{label:'Leap year',text:'A year with 366 days, including February 29.'},
+ '12-hour clock':{label:'12-hour clock',text:'A clock system that divides the day into two 12-hour periods marked AM and PM.'},
+ '24-hour clock':{label:'24-hour clock',text:'A clock system that numbers hours from 00 through 23.'}
 };
 
 const definitionEntries=Object.entries(definitions).sort((a,b)=>b[0].length-a[0].length);
