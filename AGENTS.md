@@ -4,13 +4,29 @@ This file is the repository-level entry point for instructions that apply to AI 
 
 ## Required reading before implementation
 
-Before planning, designing, implementing, or modifying any public-facing tool, calculator, converter, landing page, content architecture, or SEO behavior:
+Before planning, designing, implementing, or modifying any public-facing tool, calculator, converter, landing page, content architecture, SEO behavior, or site UI:
 
 1. Read `docs/RANKING_SEO_STRATEGY.md` in full.
-2. Treat that document as a required project standard, not optional guidance.
-3. Incorporate its search-intent, canonical, crawlable-content, internal-linking, definition-bubble, structured-data, sitemap, indexing, release-gate, and production-QA requirements into the implementation.
-4. Do not create thin, duplicate, doorway, or uncontrolled programmatic pages.
-5. If a requested implementation conflicts with `docs/RANKING_SEO_STRATEGY.md`, identify and document the conflict before proceeding rather than silently ignoring the standard.
+2. Read `docs/UI_DESIGN_SYSTEM.md` in full.
+3. Treat both documents as required project standards, not optional guidance.
+4. Incorporate the SEO strategy's search-intent, canonical, crawlable-content, internal-linking, definition-bubble, structured-data, sitemap, indexing, release-gate, and production-QA requirements into the implementation.
+5. Reuse the UI design system's canonical site shell, calculator patterns, controls, responsive behavior, and accessibility rules rather than creating cluster-specific approximations.
+6. Do not create thin, duplicate, doorway, or uncontrolled programmatic pages.
+7. If a requested implementation conflicts with either project standard, identify and document the conflict before proceeding rather than silently ignoring the standard.
+
+## UI foundation and drift prevention
+
+`docs/UI_DESIGN_SYSTEM.md` is the authoritative UI contract for public ConversionType tools.
+
+Requirements:
+
+- Start new public tools from the closest currently released reference implementation.
+- Reuse established shared markup, classes, CSS, brand treatment, calculator layout, footer, privacy controls, and responsive behavior.
+- Do not invent a new header, logo treatment, button style, calculator shell, typography system, spacing system, or mobile breakpoint for an individual calculator cluster.
+- Live bidirectional converters must not show a redundant Convert/Calculate button when editing either value already updates the other value immediately.
+- Submit-driven calculators may retain Calculate, Solve, Simplify, or equivalent actions when explicit submission is part of the interaction model.
+- Add or update automated checks when a public UI contract can regress silently.
+- Treat visual consistency failures as product regressions even when calculations and SEO checks pass.
 
 ## Future build planning
 
@@ -27,11 +43,12 @@ Every new public tool or landing-page feature should explicitly consider:
 - Structured-data decision
 - Sitemap and indexing decision
 - Share/state URL behavior when applicable
+- Canonical UI reference page and interaction pattern
 - Mobile usability
 - Automated release-gate coverage
 - Production QA requirements
 
-Do not treat SEO as a post-build content pass. It is part of the feature architecture.
+Do not treat SEO or UI consistency as post-build passes. They are part of the feature architecture.
 
 ## Definition bubbles and contextual learning
 
@@ -97,10 +114,12 @@ A successful build alone is not sufficient to declare an SEO-focused feature com
 
 ## Production QA
 
-For relevant releases, production QA should verify both product behavior and search-facing behavior, including:
+For relevant releases, production QA should verify both product behavior, UI consistency, and search-facing behavior, including:
 
 - Canonical route loads.
 - Tool produces correct results.
+- Shared site shell matches `docs/UI_DESIGN_SYSTEM.md`.
+- Live converters do not expose redundant submission controls.
 - Shareable state restores correctly when supported.
 - Mobile layout remains usable.
 - No horizontal overflow.
@@ -119,7 +138,7 @@ For ConversionType repository work:
 
 1. Follow the user's explicit task requirements.
 2. Follow this `AGENTS.md` file.
-3. Follow the project standards referenced by this file, especially `docs/RANKING_SEO_STRATEGY.md`.
+3. Follow the project standards referenced by this file, especially `docs/RANKING_SEO_STRATEGY.md` and `docs/UI_DESIGN_SYSTEM.md`.
 4. Preserve existing architecture and release gates unless the task explicitly requires a deliberate change.
 
 If requirements conflict, call out the conflict rather than silently discarding a project standard.
@@ -129,7 +148,8 @@ If requirements conflict, call out the conflict rather than silently discarding 
 Confirm that:
 
 - `docs/RANKING_SEO_STRATEGY.md` was reviewed when applicable.
-- The implementation follows its requirements.
+- `docs/UI_DESIGN_SYSTEM.md` was reviewed when applicable.
+- The implementation follows both standards.
 - Definition opportunities were considered for explanatory content.
 - Relevant automated gates pass.
 - The PR/merge workflow was followed for product changes.
