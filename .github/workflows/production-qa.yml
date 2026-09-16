@@ -2,6 +2,9 @@ name: Production QA
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       base_url:
@@ -26,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      QA_EXPECTED_COMMIT: ${{ inputs.expected_commit }}
+      QA_EXPECTED_COMMIT: ${{ github.event_name == 'push' && github.sha || inputs.expected_commit }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -50,6 +53,10 @@ jobs:
             done
             cat /tmp/conversiontype-qa-server.log
             exit 1
+          fi
+          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            echo "QA_BASE_URL=https://conversiontype.pages.dev" >> "${GITHUB_ENV}"
+            exit 0
           fi
           echo "QA_BASE_URL=${DISPATCH_BASE_URL}" >> "${GITHUB_ENV}"
       - name: Install QA runner
