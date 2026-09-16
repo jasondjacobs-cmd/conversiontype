@@ -14,6 +14,22 @@ Before planning, designing, implementing, or modifying any public-facing tool, c
 6. Do not create thin, duplicate, doorway, or uncontrolled programmatic pages.
 7. If a requested implementation conflicts with either project standard, identify and document the conflict before proceeding rather than silently ignoring the standard.
 
+## Product ownership: file-format conversion
+
+File-format conversion tools belong on `ConvertFileType.com`, not ConversionType.
+
+Requirements:
+
+- Do not build or maintain a duplicate ConversionType tool when the same file-conversion intent is already served, or is deliberately assigned to be served, by ConvertFileType.com.
+- ConversionType may surface relevant file-conversion choices for user discovery, but those choices should link directly to the corresponding permanent ConvertFileType.com tool rather than create a thin placeholder or competing ConversionType landing page.
+- Clearly communicate when a file-conversion link sends the user to ConvertFileType.com.
+- Treat useful editorial links from ConversionType to ConvertFileType.com as ordinary followed links unless a specific technical or policy reason requires otherwise.
+- Keep file-conversion URLs owned by ConvertFileType.com out of the ConversionType sitemap and canonical architecture.
+- Before proposing a new file converter on ConversionType, check whether that search intent belongs to or already exists on ConvertFileType.com. If it does, link to the ConvertFileType.com tool instead of rebuilding it.
+- Cross-link back from ConvertFileType.com to ConversionType only where the destination calculator or conversion tool is genuinely useful in context; do not manufacture reciprocal links solely for SEO.
+
+This is a permanent product-boundary rule unless the user explicitly changes it.
+
 ## UI foundation and drift prevention
 
 `docs/UI_DESIGN_SYSTEM.md` is the authoritative UI contract for public ConversionType tools.
