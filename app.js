@@ -63,7 +63,17 @@ const definitions={
  'inclusive counting':{label:'Inclusive counting',text:'A counting method that includes both the starting date and ending date.'},
  'leap year':{label:'Leap year',text:'A year with 366 days, including February 29.'},
  '12-hour clock':{label:'12-hour clock',text:'A clock system that divides the day into two 12-hour periods marked AM and PM.'},
- '24-hour clock':{label:'24-hour clock',text:'A clock system that numbers hours from 00 through 23.'}
+ '24-hour clock':{label:'24-hour clock',text:'A clock system that numbers hours from 00 through 23.'},
+ 'principal':{label:'Principal',text:'The original amount borrowed or invested before interest and fees.'},
+ 'interest rate':{label:'Interest rate',text:'The percentage charged or earned on principal over a stated period.'},
+ 'APR':{label:'Annual percentage rate (APR)',text:'An annualized measure of borrowing cost based on the rate and included finance charges.'},
+ 'amortization':{label:'Amortization',text:'The process of reducing a loan balance through scheduled payments of principal and interest.'},
+ 'loan term':{label:'Loan term',text:'The length of time scheduled for repaying a loan.'},
+ 'origination fee':{label:'Origination fee',text:'An upfront charge a lender may deduct or collect for making a loan.'},
+ 'compound interest':{label:'Compound interest',text:'Interest calculated on principal plus interest accumulated in earlier periods.'},
+ 'simple interest':{label:'Simple interest',text:'Interest calculated only on the original principal.'},
+ 'amount financed':{label:'Amount financed',text:'The estimated amount borrowed after credits and additions such as applicable tax and fees.'},
+ 'finance charge':{label:'Finance charge',text:'A cost of borrowing included in the loan cash flows, such as interest or certain fees.'}
 };
 
 const definitionEntries=Object.entries(definitions).sort((a,b)=>b[0].length-a[0].length);
