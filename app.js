@@ -73,7 +73,28 @@ const definitions={
  'compound interest':{label:'Compound interest',text:'Interest calculated on principal plus interest accumulated in earlier periods.'},
  'simple interest':{label:'Simple interest',text:'Interest calculated only on the original principal.'},
  'amount financed':{label:'Amount financed',text:'The estimated amount borrowed after credits and additions such as applicable tax and fees.'},
- 'finance charge':{label:'Finance charge',text:'A cost of borrowing included in the loan cash flows, such as interest or certain fees.'}
+ 'finance charge':{label:'Finance charge',text:'A cost of borrowing included in the loan cash flows, such as interest or certain fees.'},
+ 'weighted grade':{label:'Weighted grade',text:'A course grade where assignments or categories contribute different percentages to the overall result.'},
+ 'points possible':{label:'Points possible',text:'The maximum number of points available for an assignment, category, or set of graded work.'},
+ 'category weight':{label:'Category weight',text:'The percentage of the overall course grade assigned to a category such as homework, tests, or projects.'},
+ 'current grade':{label:'Current grade',text:'Your grade based on work counted so far under the grading method used by the course.'},
+ 'desired grade':{label:'Desired grade',text:'The overall course grade you want to reach after the remaining graded work is included.'},
+ 'final exam weight':{label:'Final exam weight',text:'The percentage of the overall course grade assigned to the final exam or final assessment.'},
+ 'projected grade':{label:'Projected grade',text:'An estimated overall course grade based on your current grade, remaining weight, and expected score.'},
+ 'cumulative GPA':{label:'Cumulative GPA',text:'A credit-weighted GPA calculated across multiple completed terms or groups of courses.'},
+ 'semester GPA':{label:'Semester GPA',text:'A GPA calculated from courses in one academic term, usually weighted by each course’s credit hours.'},
+ 'weighted GPA':{label:'Weighted GPA',text:'A GPA that adds grade-point weight for designated advanced courses according to a school’s policy.'},
+ 'unweighted GPA':{label:'Unweighted GPA',text:'A GPA calculated from the base grading scale without extra grade-point boosts for advanced courses.'},
+ 'credit hour':{label:'Credit hour',text:'A unit schools use to represent a course’s academic credit and its weight in a GPA calculation.'},
+ 'completed credits':{label:'Completed credits',text:'Credit hours already included in an existing cumulative GPA.'},
+ 'quality points':{label:'Quality points',text:'Grade points multiplied by course credits; cumulative quality points are divided by total GPA credits.'},
+ 'grade point':{label:'Grade point',text:'The numeric value assigned to a letter grade on a grading scale, such as 4.0 for an A on a common scale.'},
+ 'grading scale':{label:'Grading scale',text:'The mapping from letter grades to numeric grade points used to calculate GPA.'},
+ 'course weight':{label:'Course weight',text:'Extra grade-point value a school may assign to an advanced course when calculating weighted GPA.'},
+ 'Honors':{label:'Honors course',text:'An advanced course designation that some schools give extra weight in weighted GPA calculations.'},
+ 'AP':{label:'Advanced Placement (AP)',text:'A college-level high school course designation that many schools weight more heavily in GPA calculations.'},
+ 'IB':{label:'International Baccalaureate (IB)',text:'An advanced academic program whose courses may receive extra GPA weight under a school’s policy.'},
+ 'GPA':{label:'Grade point average (GPA)',text:'A credit-weighted average of grade points. Official calculation rules vary by school.'}
 };
 
 const definitionEntries=Object.entries(definitions).sort((a,b)=>b[0].length-a[0].length);
