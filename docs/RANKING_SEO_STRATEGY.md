@@ -31,6 +31,25 @@ Do not hide multiple high-value search intents exclusively behind tabs, dropdown
 
 Avoid creating separate indexable pages for trivial variations that do not provide unique value.
 
+### Cross-site ownership: file-format converters
+
+File-format conversion search intents are owned by `ConvertFileType.com`.
+
+ConversionType must not create duplicate indexable file-converter tools or landing pages for intents already served, or deliberately assigned to be served, by ConvertFileType.com. This prevents the two sites from unnecessarily competing for the same file-conversion queries and avoids maintaining duplicate utilities.
+
+ConversionType may keep a File Converters discovery block or other contextually useful references. Those references should:
+
+- Link directly to the corresponding permanent ConvertFileType.com converter.
+- Use descriptive anchor text that accurately identifies the destination tool.
+- Clearly indicate that the destination is on ConvertFileType.com when that context helps the user.
+- Use normal followed editorial links when they are genuinely useful; do not add `nofollow` merely because both sites are related.
+- Avoid thin ConversionType intermediary pages, doorway pages, redirect-only SEO pages, or duplicate canonical pages for the same file-conversion intent.
+- Never add ConvertFileType.com-owned converter URLs or synthetic ConversionType equivalents to the ConversionType sitemap.
+
+ConvertFileType.com may link back to ConversionType calculators or numeric/unit conversion tools when those links genuinely help users. Do not create artificial reciprocal-link patterns solely to manipulate rankings.
+
+Before adding any future file-format converter to ConversionType, check ConvertFileType.com ownership first. If the intent belongs there, strengthen the relevant cross-site discovery link instead of rebuilding the tool.
+
 ## 2. Required anatomy of every indexable tool page
 
 Each indexable calculator or conversion page should normally contain:
