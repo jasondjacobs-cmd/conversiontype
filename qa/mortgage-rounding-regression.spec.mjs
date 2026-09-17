@@ -16,7 +16,7 @@ test('mortgage payment renders the known truth case as $1,918.56',async({page})=
   await page.getByRole('button',{name:'Calculate'}).click();
   const result=page.locator('[data-mortgage-result]');
   await expect(result).toBeVisible();
-  await expect(result).toContainText('Monthly principal & interest');
+  await expect(result).toContainText('Principal & interest');
   await expect(result).toContainText('$1,918.56');
   await expect(page.locator('[data-mortgage-status]')).toHaveText('');
 });
