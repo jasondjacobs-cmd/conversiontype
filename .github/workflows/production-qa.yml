@@ -10,7 +10,7 @@ on:
       base_url:
         description: Site origin to test
         required: true
-        default: https://conversiontype.pages.dev
+        default: https://conversiontype.com
         type: string
       expected_commit:
         description: Expected deployed commit SHA for the report
@@ -55,7 +55,7 @@ jobs:
             exit 1
           fi
           if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            echo "QA_BASE_URL=https://conversiontype.pages.dev" >> "${GITHUB_ENV}"
+            echo "QA_BASE_URL=https://conversiontype.com" >> "${GITHUB_ENV}"
             exit 0
           fi
           echo "QA_BASE_URL=${DISPATCH_BASE_URL}" >> "${GITHUB_ENV}"
