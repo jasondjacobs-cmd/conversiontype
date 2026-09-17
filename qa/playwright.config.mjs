@@ -19,7 +19,7 @@ export default defineConfig({
   outputDir:'test-results',
   reporter:[['line'],['html',{outputFolder:'playwright-report',open:'never'}],['json',{outputFile:'qa-results.json'}]],
   use:{
-    baseURL:process.env.QA_BASE_URL||'https://conversiontype.pages.dev',
+    baseURL:process.env.QA_BASE_URL||'https://conversiontype.com',
     ...devices['Desktop Chrome'],
     actionTimeout:7000,
     navigationTimeout:15000,
