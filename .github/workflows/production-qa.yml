@@ -63,6 +63,23 @@ jobs:
         run: npm install --no-save --no-package-lock @playwright/test@1.55.0
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+      - name: Verify production hostname redirects
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          check_redirect() {
+            source_url="$1"
+            expected_location="$2"
+            headers="$(curl --silent --show-error --head --max-redirs 0 "$source_url")"
+            status="$(printf '%s\n' "$headers" | head -n 1 | awk '{print $2}')"
+            location="$(printf '%s\n' "$headers" | awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/^[^:]*:[[:space:]]*/, ""); sub(/\r$/, ""); print; exit}')"
+            test "$status" = "301"
+            test "$location" = "$expected_location"
+          }
+          check_redirect "https://www.conversiontype.com/" "https://conversiontype.com/"
+          check_redirect "https://www.conversiontype.com/mortgage-calculator/?v=1&price=400000" "https://conversiontype.com/mortgage-calculator/?v=1&price=400000"
+          check_redirect "https://conversiontype.pages.dev/" "https://conversiontype.com/"
+          check_redirect "https://conversiontype.pages.dev/mortgage-calculator/?v=1&price=400000" "https://conversiontype.com/mortgage-calculator/?v=1&price=400000"
       - name: Run guarded production QA
         run: npx playwright test --config qa/playwright.config.mjs
       - name: Write run metadata
