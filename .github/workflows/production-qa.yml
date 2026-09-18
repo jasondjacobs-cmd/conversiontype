@@ -32,6 +32,8 @@ jobs:
       QA_EXPECTED_COMMIT: ${{ github.event_name == 'push' && github.sha || inputs.expected_commit }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -82,6 +84,15 @@ jobs:
           check_redirect "https://conversiontype.pages.dev/mortgage-calculator/?v=1&price=400000" "https://conversiontype.com/mortgage-calculator/?v=1&price=400000"
       - name: Run guarded production QA
         run: npx playwright test --config qa/playwright.config.mjs
+      - name: Submit changed URLs to IndexNow
+        if: github.event_name == 'push'
+        env:
+          INDEXNOW_BEFORE_SHA: ${{ github.event.before }}
+          INDEXNOW_AFTER_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(curl --fail --silent https://conversiontype.com/9f4a6c2e7b1d4380a5e9c6712f84bd30.txt)" = "9f4a6c2e7b1d4380a5e9c6712f84bd30"
+          node scripts/indexnow-submit.mjs
       - name: Write run metadata
         if: always()
         run: |
