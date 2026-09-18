@@ -4,7 +4,7 @@ import { sitemapUrls, changedUrls } from './indexnow-submit.mjs';
 
 const xml = await readFile('sitemap.xml', 'utf8');
 const urls = sitemapUrls(xml);
-assert.equal(urls.length, 90, 'Expected the current 90 canonical sitemap URLs');
+assert.equal(urls.length, 100, 'Expected the current 100 canonical sitemap URLs');
 assert(urls.every(url => url.startsWith('https://conversiontype.com/')));
 assert.deepEqual(changedUrls(['mortgage-calculator/index.html'], urls), ['https://conversiontype.com/mortgage-calculator/']);
 assert.equal(changedUrls(['styles.css'], urls).length, urls.length, 'Shared CSS can affect every canonical page');
