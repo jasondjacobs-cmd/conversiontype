@@ -31,7 +31,7 @@ test('GA4 requests require opt-in and stop after revocation',async({browser,base
  expect(requests.every(url=>!url.includes('private=test')),'GA4 requests must not expose share-state query strings').toBe(true);
  await page.locator('[data-privacy]').first().click();
  await page.locator('[data-consent="essential"]').click();
- await expect.poll(()=>page.evaluate(()=>localStorage.getItem(consentKey))).toContain('essential');
+ await expect.poll(()=>page.evaluate(key=>localStorage.getItem(key),consentKey)).toContain('essential');
  await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.consent)).toBe('essential');
  await page.waitForLoadState('networkidle');
  const afterRevoke=requests.length;
