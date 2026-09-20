@@ -10,7 +10,7 @@ const viewports=[
 
 export default defineConfig({
   testDir:'.',
-  testMatch:['conversiontype-production.spec.mjs','definition-bubbles-v1.spec.mjs','unit-conversion-v1.spec.mjs','date-time-v1.spec.mjs','cooking-conversion-v1.spec.mjs','ui-foundation-v1.spec.mjs','financial-calculators-v1.spec.mjs','mortgage-rounding-regression.spec.mjs','analytics-consent-v2.spec.mjs'],
+  testMatch:['conversiontype-production.spec.mjs','homepage-search-v1.spec.mjs','definition-bubbles-v1.spec.mjs','unit-conversion-v1.spec.mjs','date-time-v1.spec.mjs','cooking-conversion-v1.spec.mjs','ui-foundation-v1.spec.mjs','financial-calculators-v1.spec.mjs','mortgage-rounding-regression.spec.mjs','analytics-consent-v2.spec.mjs'],
   timeout:30000,
   expect:{timeout:7000},
   fullyParallel:false,
