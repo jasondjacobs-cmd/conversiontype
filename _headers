@@ -6,3 +6,5 @@
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+/_meta/commit.txt
+  Cache-Control: no-store
