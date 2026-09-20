@@ -28,8 +28,10 @@ assert.deepEqual(searchTokens('How many cups in grams'),['cup','gram']);
 assert.match(serializeSearchIndex(index),/^export const searchIndex=Object\.freeze\(/);
 
 const homepage=await readFile('index.html','utf8');
-for(const token of ['<span class="visually-hidden">Search all calculators</span>','aria-controls="search-results"','id="search-result-grid"','id="browse"','src="/homepage-search.js"'])assert.ok(homepage.includes(token),`homepage missing ${token}`);
+for(const token of ['<span class="visually-hidden">Search all calculators</span>','aria-controls="search-results"','id="search-result-grid"','id="browse"','src="/homepage-search.js?v=homepage-search-empty-state-v1"','href="/styles.css?v=homepage-search-empty-state-v1"'])assert.ok(homepage.includes(token),`homepage missing ${token}`);
 const styles=await readFile('styles.css','utf8');
 assert.ok(styles.includes('.visually-hidden'));
 assert.ok(styles.includes('.search:focus-within'));
+assert.ok(styles.includes(':where([hidden]){display:none!important}'),'hidden search states must remain visually hidden');
+assert.ok(styles.includes('#empty{display:none}#empty.is-visible{display:block}'),'empty state must require an explicit visible class');
 console.log(`Homepage search contract passed for ${index.length} public tools.`);

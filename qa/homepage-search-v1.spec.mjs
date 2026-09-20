@@ -47,9 +47,16 @@ test('homepage search covers every public tool at each viewport',async({page},te
  await search.fill('zzzz-no-match');
  await expect(page.locator('#status')).toHaveText('0 matching tools');
  await expect(page.locator('#empty')).toBeVisible();
+ await expect(page.locator('#empty')).toHaveClass(/is-visible/);
+ await expect(page.locator('#empty')).toHaveAttribute('aria-hidden','false');
  await expect(page.locator('#search-result-grid')).toBeHidden();
 
  await search.fill('mortgage calculator');
+ await expectCountMatchesVisibleCards(page);
+ await expect(page.locator('#empty')).toBeHidden();
+ await expect(page.locator('#empty')).toHaveCSS('display','none');
+ await expect(page.locator('#empty')).not.toHaveClass(/is-visible/);
+ await expect(page.locator('#empty')).toHaveAttribute('aria-hidden','true');
  await search.press('Tab');
  await expect(page.locator('#search-result-grid .card').first()).toBeFocused();
  await expect(page.locator('#search-result-grid .card').first()).toHaveAttribute('href','/mortgage-calculator/');
