@@ -14,15 +14,21 @@ export function initHomepageSearch(document,index=searchIndex){
  const input=document.querySelector('#search'),status=document.querySelector('#status'),results=document.querySelector('#search-results'),grid=document.querySelector('#search-result-grid'),empty=document.querySelector('#empty'),browse=document.querySelector('#browse');
  if(!input||!status||!results||!grid||!empty||!browse)return;
 
+ const setEmptyState=visible=>{
+  empty.hidden=!visible;
+  empty.classList.toggle('is-visible',visible);
+  empty.setAttribute('aria-hidden',String(!visible));
+ };
+
  const update=()=>{
   const query=input.value.trim();
   if(!query){
-   status.textContent='';results.hidden=true;browse.hidden=false;empty.hidden=true;grid.hidden=false;grid.replaceChildren();
+   status.textContent='';results.hidden=true;browse.hidden=false;setEmptyState(false);grid.hidden=false;grid.replaceChildren();
    return;
   }
   const matches=searchTools(index,query);
   grid.replaceChildren(...matches.map(entry=>resultCard(document,entry)));
-  grid.hidden=matches.length===0;empty.hidden=matches.length!==0;
+  grid.hidden=matches.length===0;setEmptyState(matches.length===0);
   browse.hidden=true;results.hidden=false;
   status.textContent=`${matches.length} matching ${matches.length===1?'tool':'tools'}`;
  };
