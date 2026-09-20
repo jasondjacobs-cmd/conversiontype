@@ -61,6 +61,9 @@ jobs:
             exit 0
           fi
           echo "QA_BASE_URL=${DISPATCH_BASE_URL}" >> "${GITHUB_ENV}"
+      - name: Wait for exact production deployment
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.expected_commit != '')
+        run: node scripts/wait-for-deployment.mjs "${QA_BASE_URL}" "${QA_EXPECTED_COMMIT}"
       - name: Install QA runner
         run: npm install --no-save --no-package-lock @playwright/test@1.55.0
       - name: Install Chromium
